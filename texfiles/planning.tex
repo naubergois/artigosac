@@ -1,0 +1,70 @@
+\section{Planning and Conducting of Research}
+
+In this section, the steps of planning and review of driving are presented in details. The research aims to achieve the following goals:
+
+\begin{itemize}
+\item The application of a systematic review in the context of Evolutionary Tests and Combinatorial Optimization Algorithms;
+\item The development of a tool to perform Evolutionary Tests; and
+\item The application of two test experiments using a simulated component and a test application.
+\end{itemize}
+
+\subsection{Systematic Review}
+
+The first part of the study was a systematic review. A systematic review is a process of assessment of all available research related to a research question or subject of interest. The planning of the systematic review was carried out from the protocol defined by Biolchini \cite{Biolchini2005} \cite{Afzal2009}. Planning is the starting point for the review, whose main points are the definition of one or more research questions. The methods  to conduct the research  include selection of sources to search, search strategies and the use of keywords.
+
+\subsubsection{Research Questions}
+
+The work aims to answer three research questions:
+
+
+First Question : How to find test scenarios that break the application service level established?
+
+Second Question : How to use Evolutionary Tests and Combinatorial Optimization Algorithms  to set a suitable workload for fault-inducing loads?
+
+Third Question : How to automate the execution of a performance , load and stress tests?
+
+\subsubsection{Generation of search strategy}
+
+For each question, keywords were chosen and used in a search strategy. The search strategy for the selection of studies was carried out through search in repositories (ACM, Springer, IEEE, Google Scholar, Science Direct, Mendeley ) , language ( Portuguese and English) and the keywords defined. Using the results, new keywords have been included, feeding back the process. The research strategy included these two practices:
+
+%(Figure \ref{fig:figuraselecao})
+
+\begin{enumerate}
+\item Identification of other words and synonyms for terms used in the research questions. This practice is used for minimize the effect of differences in terminologies;
+\item The keywords and their possible combinations and synonyms were submitted in the selected repositories search engines; 
+\item  Among the results, were excluded studies not related to load, performance and stress tests.
+\end{enumerate}
+
+%\begin{figure}[!ht]
+%\centering
+%\includegraphics[width=0.50\textwidth]{./images/surveybusca2.png}
+%\caption{Search Strategy}
+%\label{fig:figuraselecao}
+%\end{figure}
+
+
+
+We used the following search terms:
+
+\begin{itemize}
+
+\item Stress Testing: Search-based Testing, Genetic Algorithms, Stress Testing, Test Tools, Test Automation, Empirical Analysis, Denial of Service, Ramp-Up time, Think Timer,  Response Time, Bandwidth Throttle, Dynamic Stress Testing, Evolutionary, Heuristic, Search-Based, Metaheuristic. optimization, genetic algorithms, genetic programming.
+\item Performance Testing: Performance Testing, Web-based Systems, Software Testing, Model-Based Testing, Software Product Line, Regression Testing, Test Failure Prediction, Genetic Metric Selection.
+\item Load Testing: Markov chain,  Automatic Test Case Generation Algorithms, Domain-based reliability measure, Fault detection, Load Test suites, load testing, Reliability, Resource allocation mechanisms, Software testing, System degradation.
+\item Combinatorial Optimization Algorithms: Tabu Search, Genetic Algorithms, Simulated Annealing, Evolutionary Test, WCET, BCET, Genome.
+\end{itemize}
+
+\subsection{Development of a tool to perform Evolutionary Tests}
+
+During the experiment, tests tools were prospected to implement Evolutionary Tests. We choose tools that were open and could be extended to new implementations. From the results of the systematic review , We found 54 open performance testing tools.  Among these tools were selected those who had resources of distributed test  and  had extension features, such as the use of plugins: Apache JMeter and  The Grinder.
+
+Apache JMeter is a performance testing framework from Apache. The framework has been widely accepted as a performance testing tool for Web applications. It can be used to analyze overall server performance under simulated heavy load \cite{Nevedrov2007}.
+
+The Grinder is a free load-testing framework available under a BSD-style open-source license.  The Grinder supports scripting in Jython and recently also Clojure. The Grinder consists of two components: The Grinder Console  and The Grinder Agents. The key features of The Grinder are: a TCP proxy to create the test script; The execution of distributed tests and the support of multiple protocols \cite{Wang2010} \cite{Smeral2014}. 
+ 
+
+The Apache JMeter was chosen by the major facility of plugins creation and the major number of user in their community. In the research, We extends the JMeter to perform evolutionary  tests using a plugin named IAdapter.
+
+\subsection{Application of Experiments}
+
+One of the objectives of this research is to perform two experiments. The first experiment in going to be applied in an emulated controlled environment and the second experiment uses a web application installed  in a web server.

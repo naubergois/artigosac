@@ -1,0 +1,175 @@
+\section{Experiments}
+
+This section presents two experiments. The first one has been applied in an emulated component and The second experiment has been applied in an installed Moodle application. The experiments used this fitnesse function:
+
+\begin{equation}
+\begin{aligned}
+fit=0.9* 90percentiletime\\
++0.1*80percentiletime\\+
+0.1*70percentiletime+\\
+0.1*maxResponseTime+\\
+0.2*numberOfUsers-penalty
+\end{aligned}
+\end{equation}
+
+The fitnesse function used in the experiments intended to find individuals with the highest percentile of 90\%, followed by individuals with higher percentile time of 80\% and 70\%, maximum response time and number of users.
+
+The first experiment has implemented 27 generations and the second experiment has performed 6 generations, with 300 executions by generation (100 times for each algorithm),  generating 300 new individuals. The experiments had used a initial population of 100 individuals. The Genetic Algorithm used the top 10 individuals from each generation to the crossover operation. The Tabu List has been configured with the size of 10 individuals and expire every 2 generations.  The mutation operation was applied to 10\% of the population on each generation. 
+
+\subsection{First Experiment- Emulated Class Test}
+
+The first experiment aimed to apply performance, load and stress testing in a simulated component. The purpose of using a simulated component is able to perform a greater number of generations in a shorter time available and eliminate variables such as the use of databases and application servers. The first experiment used a test class  named SimulateConcurrentAccess. These class have a static variable named \textit{x} and a set of methods that uses the variable in a synchronized context ( Listing \ref{classsimulated}).
+
+\lstdefinestyle{outline}{
+		language=Java,
+         basicstyle=\scriptsize\ttfamily,
+         numberstyle=\tiny,
+         numbersep=5pt,
+         tabsize=2,
+         extendedchars=true,
+         breaklines=true,
+         keywordstyle=\color{black}\bf,
+         frame=b,  % <<<<<<<<<<<<<<<<<<<<<<<<<<
+         stringstyle=\color{green!40!black}\ttfamily,
+         showspaces=false,
+         showtabs=false,
+         numbers=left,
+         xleftmargin=17pt,
+         framexleftmargin=17pt,
+         framextopmargin=1pt, % <<<<<<<<<<<<<<<<<<<<<<
+         showstringspaces=false,
+         %backgroundcolor=\color[RGB]{200,200,200},
+         belowcaptionskip=0pt
+}
+
+\begin{lstlisting}[style=outline,caption={SimulateConcurrentAcess class},float,label=classsimulated]
+public class SimulateConcurrentAccess {
+  @Test
+  public void test() {		
+    synchronized (StaticClass.class) {
+			for (int i = 0; i <= 1000; i++) {
+				StaticClass.x += i;
+			}
+			StaticClass.x = 0;
+		}
+	}
+\end{lstlisting}
+
+
+Fig.\ref{fig:exp1bestresults} presents the best results in 27 generations applied in the first experiment . The Figure shows the results obtained with the algorithms with and without collaboration. The $x$ axis  represents the generation number and the $y$ axis represents the best fitnesse value obtained until the current generation. The results of the experiment showed that the use of cooperation between the three algorithms resulted in find individuals with better fitnesse values.
+
+\begin{figure}[h]
+\centering
+\caption{Best results obtained in 27 generations}
+\includegraphics[width=0.5\textwidth]{./images/generationcomparative.png}
+\label{fig:exp1bestresults}
+\end{figure}
+The table \ref{tab:averagefirst} presents the results obtained by the Hybrid Metaheuristc (HM), Genetic Algorithm (GA), Simulated Annealing (SA) and TABU Search (TS) from 27 generations in the first experiment. The values are the maximum value of the fitnesse obtained in each algorithm. 
+
+\begin{table}[h]
+\centering
+\caption{Fitnesse function maximum value by algorithm}
+\label{tab:averagefirst}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+GEN & HM & TS  & GA    & SA    \\ \hline
+1          & 11238 & 11238         & 11238 & 11238 \\ \hline
+2          & 11804 & 11596         & 11801 & 10677 \\ \hline
+3          & 11787 & 8932          & 8411  & 10869 \\ \hline
+4          & 11723 & 9753          & 9611  & 10760 \\ \hline
+5          & 8164  & 9780          & 10738 & 4794  \\ \hline
+6          & 11802 & 9781          & 11086 & 6120  \\ \hline
+7          & 9985  & 5782          & 11272 & 11798 \\ \hline
+8          & 11803 & 11749         & 10084 & 11309 \\ \hline
+9          & 11806 & 7284          & 11633 & 10766 \\ \hline
+10         & 11807 & 9386          & 11717 & 4557  \\ \hline
+11         & 11802 & 9653          & 11802 & 11151 \\ \hline
+12         & 11807 & 10594         & 11793 & 9434  \\ \hline
+13         & 11802 & 10848         & 10382 & 11805 \\ \hline
+14         & 11801 & 11551         & 7219  & 10237 \\ \hline
+15         & 11807 & 1701          & 7189  & 9338  \\ \hline
+16         & 11813 & 6203          & 11758 & 5321  \\ \hline
+17         & 11805 & 10720         & 10805 & 11748 \\ \hline
+18         & 9600  & 6371          & 11698 & 7818  \\ \hline
+19         & 11733 & 8160          & 11648 & 11509 \\ \hline
+20         & 9589  & 9428          & 11805 & 4813  \\ \hline
+21         & 11800 & 9463          & 11798 & 10801 \\ \hline
+22         & 11805 & 11799         & 11804 & 6029  \\ \hline
+23         & 11836 & 11655         & 11800 & 3579  \\ \hline
+24         & 11805 & 11512         & 11803 & 5761  \\ \hline
+25         & 11804 & 11573         & 11802 & 9680  \\ \hline
+26         & 11800 & 11575         & 11403 & 9388  \\ \hline
+27         & 11805 & 10691         & 11745 & 9465  \\ \hline
+\end{tabular}
+\end{table}
+
+The signed-rank Wilcoxon non-parametrical procedure was used for comparing the results. The procedure showed that there was a significant improvement in the results with the collaborative approach.
+
+\subsection{Second Experiment- Moodle Application Test}
+
+The second experiment uses a Moodle application installed in a machine with 500 Gb of hard disk and 8 Gb of memory.The study used six application scenarios:
+
+\begin{itemize}
+\item PostDeleteMessage- This scenario post and delete messages in the moodle application.
+\item MyHome- This scenario access the user's homepage of the application.
+\item Login- This scenario are responsible by the user authentication of the application.
+\item Notifications- This scenario enter in the notification page of each user.
+\item Start Page- Initial start page of the application.
+\item Badge- This scenario enter in the Badge page.
+\end{itemize}
+
+The maximum tolerated response time in test was 30 seconds.  Any  individuals that obtained a time longer than the stipulated maximum time suffered penalties.  The whole process of stress and performance tests, which took three days and about 1800 executions, was carried out without the need for monitoring of a test designer. The tool have  selected automatically the next scenarios to be run up to the limit of six generations previously established. 
+
+The Table \ref{tab:secondexperiment} presents the maximum fitnesse value obtained by the Hybrid Metaheuristc (HM), Genetic Algorithm (GA), Simulated Annealing (SA) and TABU Search (TS) in each generation. 
+
+\begin{table}[h]
+\centering
+\caption{Results obtained from the second experiment}
+\label{tab:secondexperiment}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+GEN & HM    & TS    & GA    & SA    \\
+\hline
+1          & 32242 & 32242 & 32242 & 32242 \\
+\hline
+2          & 34599 & 32443 & 26290 & 35635 \\
+\hline
+3          & 35800 & 34896 & 34584 & 34248 \\
+\hline
+4          & 35782 & 34912 & 32689 & 25753 \\
+\hline
+5          & 35611 & 31833 & 34631 & 8366  \\
+\hline
+6          & 35362 & 35041 & 33397 & 9706 \\
+\hline
+\end{tabular}
+\end{table}
+
+
+The small number of samples of the experiment is insufficient to give a statistical significance with Wilcoxon procedure. However, it is noted that in 4 of 6 generations, the collaborative approach presented the best values. The experiment succeeded in finding 29 individuals where the maximum time expected by the application was obtained.  The Table. \ref{tab:secondexperiment11} has a example of the six individuals with the highest fit values in the second experiment. The Table shows the fitnesse value (Fit),  the name of scenario (Scenario), the number of users (N.Users), the percentiles of 90\%,80\% and 70\% (90per, 80 per and 70per) in seconds.  
+
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+\begin{table}[h]
+\centering
+\caption{Example of individuals obtained in the second experiment}
+\label{tab:secondexperiment1}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+Ind&Fit&Scenario&N.Users&90per&80per&70per\\ \hline
+\multirow{2}{*}{1} & \multirow{2}{*}{35800} & MyHome        & 31              & \multirow{2}{*}{30} & \multirow{2}{*}{29} & \multirow{2}{*}{10} \\ \cline{3-4}
+                   &                        & Badges        & 4               &                     &                     &                     \\ \hline
+\multirow{3}{*}{2} & \multirow{3}{*}{35795} & MyHome        & 30              & \multirow{3}{*}{30} & \multirow{3}{*}{29} & \multirow{3}{*}{10} \\ \cline{3-4}
+                   &                        & Notifications & 2               &                     &                     &                     \\ \cline{3-4}
+                   &                        & Badges        & 2               &                     &                     &                     \\ \hline
+\multirow{2}{*}{3} & \multirow{2}{*}{35782} & MyHome        & 32              & \multirow{2}{*}{30} & \multirow{2}{*}{29} & \multirow{2}{*}{10} \\ \cline{3-4}
+                   &                        & Badges        & 3               &                     &                     &                     \\ \hline
+\multirow{3}{*}{4} & \multirow{3}{*}{35773} & MyHome        & 22              & \multirow{3}{*}{30} & \multirow{3}{*}{29} & \multirow{3}{*}{10} \\ \cline{3-4}
+                   &                        & Notifications & 6               &                     &                     &                     \\ \cline{3-4}
+                   &                        & Badges        & 9               &                     &                     &                     \\ \hline
+\multirow{2}{*}{5} & \multirow{2}{*}{35771} & MyHome        & 28              & \multirow{2}{*}{30} & \multirow{2}{*}{29} & \multirow{2}{*}{9}  \\ \cline{3-4}
+                   &                        & Badges        & 6               &                     &                     &                     \\ \hline
+\multirow{2}{*}{6} & \multirow{2}{*}{35683} & MyHome        & 27              & \multirow{2}{*}{30} & \multirow{2}{*}{29} & \multirow{2}{*}{8}  \\ \cline{3-4}
+                   &                        & Badges        & 10              &                     &                     &                     \\ \hline
+\end{tabular}
+\end{table}
